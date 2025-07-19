@@ -1,3 +1,8 @@
+---
+layout: default
+title: Math Example
+--- 
+
 # Summary
 	ala  -   Constantin
 > [!Var] Nomenclatures  
