@@ -11,100 +11,100 @@
 </head>
 <body>
   <h1 id="summary">Summary</h1>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ala  -   Constantin &gt; [!Var] Nomenclatures   &gt; $[\ .. ]_{C,f}:=$linearized ${}f{}$lux coefficient for cell ${}C{}$enter &gt; $[\ .. ]_{F,f}:=$linearized ${}f{}$lux for cell neighbor on face ${}F{}$   &gt; $[\ .. ]_{V,f}:=$*non-*linearized ${}f{}$lux (on source side)   &gt; TBD other flux terms &gt;  - example 
-$$	
-	\frac{\partial{} \rho{} \phi{} }{\partial{} t}   + \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) = \nabla \cdot{} ( \Gamma{} \nabla  \phi{}) + Q
-$$ -   Discretize
--&gt; integral form
-$$	
-	\int\limits_{\Delta{}t} \int\limits_{V_{C}} \frac{\partial{} \rho{} \phi{}}{\partial{} t} dVdt
-	+ \int\limits_{\Delta{}t} \int\limits_{V_{C}} \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) dVdt
-	= \int\limits_{\Delta{}t} \int\limits_{V_{C}} \nabla \cdot{} ( \Gamma{} \nabla  \phi{})  dVdt
-	+ \int\limits_{\Delta{}t} \int\limits_{V_{C}} Q dVdt
-$$ - Divergence theorem 
--&gt; Some terms put on faces
-$$	
-	\int\limits_{\Delta{}t} \int\limits_{V_{C}} \frac{\partial{} \rho{} \phi{}}{\partial{} t} dVdt
-	+ \int\limits_{\Delta{}t} \oint\limits_{S_{C}} \cancel{\nabla \cdot{}} (\rho{} \mathbf{u} \phi{}) d\vec{ S }  dt
-	= \int\limits_{\Delta{}t} \oint\limits_{S_{C}}  \cancel{\nabla \cdot{}} ( \Gamma{} \nabla  \phi{})  d\vec{ S }  dt
-	+ \int\limits_{\Delta{}t} \int\limits_{V_{C}}  Q dVdt
-$$ - midpoint rule   / sum contributions
-assuming orthogonal mesh
-$$	
-		\int\limits_{\Delta{}t}  \frac{\partial{} \rho{}_{C} \phi{}_{C}}{\partial{} t} V_{C}dt
-	+ \int\limits_{\Delta{}t} \sum _{f}  (\rho{}_{f} \mathbf{u}_{f} \phi{}_{f}) \vec{ S }_{f}  dt
-	= \int\limits_{\Delta{}t} \sum _{f} ( \Gamma{}_{f} (\nabla  \phi{})_{f})  \vec{ S }_f  dt
-	+ \int\limits_{\Delta{}t}  Q V_{C}dt 
-$$ - implicit Euler
-$$
-    \frac{ \left( \partial{} \rho{}_{C} \phi{}_{C} \right)^{t}   - \left( \partial{} \rho{}_{C} \phi{}_{C} \right)^{t - \Delta{}t}    }  
-    {  \Delta{}t}V_{C}
-	+ \sum _{f}  (\rho{}_{f} \mathbf{u}_{f} \phi{}_{f})^{t} \vec{ S }_{f}  \cancel{\Delta{}t}
-	= \sum _{f} ( \Gamma{}_{f} (\nabla  \phi{})_{f})^{t}  \vec{ S }_{f}  \cancel{\Delta{}t}
-	+   \left(Q V_{C}\right)^{t }\cancel{\Delta{}t }
-$$ - Flux Linearization
-$$	
-    \begin{align} 
-          &amp; \left(
-    \underbrace{ \frac{\left(\rho{}_{C} \phi{}_{C}\right)^{t}   } {\Delta{}t}  V_{C}   }  
-    _{ F_C ^{tmp}  \phi{}_{C}^{t}}
-    \underbrace{ - \frac{ \left(  \rho{}_{C}\phi{}_{C} \right) ^{t - \Delta{}t}   }  
-    { \Delta{}t } V_{C}  }  
-    _{  F_{V}  ^{tmp}  }
-    \right)
-     + \left( \sum _{f} 
-    \underbrace{ \rho{}_{f} u_{f} \phi{}_{f} }  
-    _{ J_{f}^{conv}  = F_{c,f}^{conv} \phi{}_{C} +F_{f,f}^{conv} \phi{}_{F} +F_{V,f}^{conv}  }
-     \cdot{} \vec{ S }  _{f} \right) ^{t} \\
-      &amp; = \left( \sum _{f} 
-    \underbrace{ \Gamma{}_{f} \left(\nabla  \phi{}_{f}\right)_{f} }  
-    _{ J_{f}^{diff}  = F_{c,f}^{diff} \phi{}_{C} +F_{f,f}^{diff} \phi{}_{F} +F_{V,f}^{diff} }
-     \cdot{} \vec{ S }  _{f} \right) ^{t}
-     + \left( 
-    \underbrace{ Q_{C} V_{C}  }  
-    _{ J_{C}^{src} =  F_{C}^{src} \phi{}_{C} + F_{V}^{src} }
-    \right) ^{t}
-    \end{align}
-$$
-- rewrite as grouped terms:
-	$$
-	    \begin{align} 
-	          &amp; \left(
-	    F_C ^{tmp}  \phi{}_{C}^{t}
-	     + F_{V}  ^{tmp}  
-	    \right)
-	     + \sum _{f} 
-	     \left( F_{c,f}^{conv} \phi{}_{C} +F_{f,f}^{conv} \phi{}_{F} +F_{V,f}^{conv}\right)^{t}
-	     \cdot{} \vec{ S }  _{f}  \\
-	      &amp; =  \sum _{f} 
-	    \left(F_{c,f}^{diff} \phi{}_{C} +F_{f,f}^{diff} \phi{}_{F} +F_{V,f}^{diff}\right)^{t}
-	     \cdot{} \vec{ S }  _{f} 
-	     + \left( 
-	    F_{C}^{src} \phi{}_{C} + F_{V}^{src} 
-	    \right) ^{t}
-	    \end{align}
-	$$ - grouping implicit explicit
-$$	
-    \begin{align}
-     &amp; \left. \begin{array} {l} 
-                \left(
-    F_C ^{tmp}  
-    + \sum _{f} \left( F_{c,f}^{conv} -F_{c,f}^{diff} \right)^{t} \cdot{} \vec{ S }  _{f} 
-    +F_{C}^{src}
-    \right) \phi{}_{C}^{t} \\
-       + \left( 
-     \sum _{f} \left( F_{f,f}^{conv}  - F_{f,f}^{diff}  \right)^{t}\cdot{} \vec{ S }  _{f} 
-     \right) \phi{}_{F}^{t} \\  
-    \end{array} \qquad \right\} \quad \text{implicit}  \\
-      &amp; =   
-      - F_{V}  ^{tmp}     
-      + \sum _{f} \left(- F_{V,f}^{conv} +F_{V,f}^{diff}\right)^{t}
-     \cdot{} \vec{ S }  _{f} \} 
-     + F_{V}^{src,t} \qquad \} \quad \text{explicit} 
-    \end{align}
-$$
-signs of ${}F{}$ arbitrary, depends on govt. eq ### Boundary condition   ###### Summary of openFOAM implementation
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ala  -   Constantin &gt; [!Var] Nomenclatures   &gt; $[\ .. ]_{C,f}:=$linearized ${}f{}$lux coefficient for cell ${}C{}$enter &gt; $[\ .. ]_{F,f}:=$linearized ${}f{}$lux for cell neighbor on face ${}F{}$   &gt; $[\ .. ]_{V,f}:=$*non-*linearized ${}f{}$lux (on source side)   &gt; TBD other flux terms
 </code></pre></div></div>
+
+<ul>
+  <li>example 
+  \(\frac{\partial{} \rho{} \phi{} }{\partial{} t}   + \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) = \nabla \cdot{} ( \Gamma{} \nabla  \phi{}) + Q\)</li>
+  <li>Discretize
+-&gt; integral form
+\(\int\limits_{\Delta{}t} \int\limits_{V_{C}} \frac{\partial{} \rho{} \phi{}}{\partial{} t} dVdt
+    + \int\limits_{\Delta{}t} \int\limits_{V_{C}} \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) dVdt
+    = \int\limits_{\Delta{}t} \int\limits_{V_{C}} \nabla \cdot{} ( \Gamma{} \nabla  \phi{})  dVdt
+    + \int\limits_{\Delta{}t} \int\limits_{V_{C}} Q dVdt\)</li>
+  <li>Divergence theorem 
+  -&gt; Some terms put on faces
+  \(\int\limits_{\Delta{}t} \int\limits_{V_{C}} \frac{\partial{} \rho{} \phi{}}{\partial{} t} dVdt
+      + \int\limits_{\Delta{}t} \oint\limits_{S_{C}} \cancel{\nabla \cdot{}} (\rho{} \mathbf{u} \phi{}) d\vec{ S }  dt
+      = \int\limits_{\Delta{}t} \oint\limits_{S_{C}}  \cancel{\nabla \cdot{}} ( \Gamma{} \nabla  \phi{})  d\vec{ S }  dt
+      + \int\limits_{\Delta{}t} \int\limits_{V_{C}}  Q dVdt\)</li>
+  <li>midpoint rule   / sum contributions
+  assuming orthogonal mesh
+  \(\int\limits_{\Delta{}t}  \frac{\partial{} \rho{}_{C} \phi{}_{C}}{\partial{} t} V_{C}dt
+      + \int\limits_{\Delta{}t} \sum _{f}  (\rho{}_{f} \mathbf{u}_{f} \phi{}_{f}) \vec{ S }_{f}  dt
+      = \int\limits_{\Delta{}t} \sum _{f} ( \Gamma{}_{f} (\nabla  \phi{})_{f})  \vec{ S }_f  dt
+      + \int\limits_{\Delta{}t}  Q V_{C}dt\)</li>
+  <li>implicit Euler
+  \(\frac{ \left( \partial{} \rho{}_{C} \phi{}_{C} \right)^{t}   - \left( \partial{} \rho{}_{C} \phi{}_{C} \right)^{t - \Delta{}t}    }  
+      {  \Delta{}t}V_{C}
+      + \sum _{f}  (\rho{}_{f} \mathbf{u}_{f} \phi{}_{f})^{t} \vec{ S }_{f}  \cancel{\Delta{}t}
+      = \sum _{f} ( \Gamma{}_{f} (\nabla  \phi{})_{f})^{t}  \vec{ S }_{f}  \cancel{\Delta{}t}
+      +   \left(Q V_{C}\right)^{t }\cancel{\Delta{}t }\)</li>
+  <li>Flux Linearization
+  \(\begin{align} 
+            &amp; \left(
+      \underbrace{ \frac{\left(\rho{}_{C} \phi{}_{C}\right)^{t}   } {\Delta{}t}  V_{C}   }  
+      _{ F_C ^{tmp}  \phi{}_{C}^{t}}
+      \underbrace{ - \frac{ \left(  \rho{}_{C}\phi{}_{C} \right) ^{t - \Delta{}t}   }  
+      { \Delta{}t } V_{C}  }  
+      _{  F_{V}  ^{tmp}  }
+      \right)
+       + \left( \sum _{f} 
+      \underbrace{ \rho{}_{f} u_{f} \phi{}_{f} }  
+      _{ J_{f}^{conv}  = F_{c,f}^{conv} \phi{}_{C} +F_{f,f}^{conv} \phi{}_{F} +F_{V,f}^{conv}  }
+       \cdot{} \vec{ S }  _{f} \right) ^{t} \\
+        &amp; = \left( \sum _{f} 
+      \underbrace{ \Gamma{}_{f} \left(\nabla  \phi{}_{f}\right)_{f} }  
+      _{ J_{f}^{diff}  = F_{c,f}^{diff} \phi{}_{C} +F_{f,f}^{diff} \phi{}_{F} +F_{V,f}^{diff} }
+       \cdot{} \vec{ S }  _{f} \right) ^{t}
+       + \left( 
+      \underbrace{ Q_{C} V_{C}  }  
+      _{ J_{C}^{src} =  F_{C}^{src} \phi{}_{C} + F_{V}^{src} }
+      \right) ^{t}
+      \end{align}\)
+    <ul>
+      <li>rewrite as grouped terms:
+  \(\begin{align} 
+            &amp; \left(
+      F_C ^{tmp}  \phi{}_{C}^{t}
+       + F_{V}  ^{tmp}  
+      \right)
+       + \sum _{f} 
+       \left( F_{c,f}^{conv} \phi{}_{C} +F_{f,f}^{conv} \phi{}_{F} +F_{V,f}^{conv}\right)^{t}
+       \cdot{} \vec{ S }  _{f}  \\
+        &amp; =  \sum _{f} 
+      \left(F_{c,f}^{diff} \phi{}_{C} +F_{f,f}^{diff} \phi{}_{F} +F_{V,f}^{diff}\right)^{t}
+       \cdot{} \vec{ S }  _{f} 
+       + \left( 
+      F_{C}^{src} \phi{}_{C} + F_{V}^{src} 
+      \right) ^{t}
+      \end{align}\)</li>
+    </ul>
+  </li>
+  <li>grouping implicit explicit
+  \(\begin{align}
+       &amp; \left. \begin{array} {l} 
+                  \left(
+      F_C ^{tmp}  
+      + \sum _{f} \left( F_{c,f}^{conv} -F_{c,f}^{diff} \right)^{t} \cdot{} \vec{ S }  _{f} 
+      +F_{C}^{src}
+      \right) \phi{}_{C}^{t} \\
+         + \left( 
+       \sum _{f} \left( F_{f,f}^{conv}  - F_{f,f}^{diff}  \right)^{t}\cdot{} \vec{ S }  _{f} 
+       \right) \phi{}_{F}^{t} \\  
+      \end{array} \qquad \right\} \quad \text{implicit}  \\
+        &amp; =   
+        - F_{V}  ^{tmp}     
+        + \sum _{f} \left(- F_{V,f}^{conv} +F_{V,f}^{diff}\right)^{t}
+       \cdot{} \vec{ S }  _{f} \} 
+       + F_{V}^{src,t} \qquad \} \quad \text{explicit} 
+      \end{align}\)
+  signs of ${}F{}$ arbitrary, depends on govt. eq
+    <h3 id="boundary-condition">Boundary condition</h3>
+    <h6 id="summary-of-openfoam-implementation">Summary of openFOAM implementation</h6>
+  </li>
+</ul>
 
 <table>
   <thead>
