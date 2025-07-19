@@ -1,15 +1,9 @@
-+++
-title = 'ConstantinsFVMSummary'
-date = 2025-07-19T11:33:50+02:00
-draft = false
-+++
-
 # Summary
 	ala  -   Constantin
-> [!Var] Nomenclatures
+> [!Var] Nomenclatures  
 > $[\ .. ]_{C,f}:=$linearized ${}f{}$lux coefficient for cell ${}C{}$enter
-> $[\ .. ]_{F,f}:=$linearized ${}f{}$lux for cell neighbor on face ${}F{}$
-> $[\ .. ]_{V,f}:=$*non-*linearized ${}f{}$lux (on source side)
+> $[\ .. ]_{F,f}:=$linearized ${}f{}$lux for cell neighbor on face ${}F{}$  
+> $[\ .. ]_{V,f}:=$*non-*linearized ${}f{}$lux (on source side)  
 > TBD other flux terms
 > 
 - example 
@@ -176,11 +170,11 @@ draft = false
 	    \end{align}
 	$$
 	- split explicit and implicit
-#### Neumann
-> [!theorem] Flux
-> $$	
-> 	q_{b} = 
-> 	\frac{\phi{}_{b} - \phi{}_{C}} 
+#### Neumann  
+> [!theorem] Flux  
+> $$    
+> 	q_{b} =    
+> 	\frac{\phi{}_{b} - \phi{}_{C}}    
 > 	{\lVert d_{C,b} \rVert }
 > $$
 - Sufficient input is $q_{b}$  -> `gradient()` 
@@ -295,4 +289,3 @@ draft = false
 	$$
 ### Coupled BC
 ![|930x854](../../@Medias/2025-07-18-3.webp)
- 
