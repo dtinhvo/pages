@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My New Hugo Site</title>
+    <link>https://example.org/posts/</link>
+    <description>Recent content in Posts on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Jul 2025 11:33:50 +0200</lastBuildDate>
+    <atom:link href="https://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ConstantinsFVMSummary</title>
+      <link>https://example.org/posts/constantinsfvmsummary/</link>
+      <pubDate>Sat, 19 Jul 2025 11:33:50 +0200</pubDate>
+      <guid>https://example.org/posts/constantinsfvmsummary/</guid>
+      <description>Summary ala -  Constantin [!Var] Nomenclatures $[\ .. ]{C,f}:=$linearized ${}f{}$lux coefficient for cell ${}C{}$enter $[\ .. ]{F,f}:=$linearized ${}f{}$lux for cell neighbor on face ${}F{}$ $[\ .. ]_{V,f}:=$*non-*linearized ${}f{}$lux (on source side) TBD other flux terms&#xA;example $$ \frac{\partial{} \rho{} \phi{} }{\partial{} t} + \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) = \nabla \cdot{} ( \Gamma{} \nabla \phi{}) + Q $$ Discretize -&amp;gt; integral form $$ \int\limits_{\Delta{}t} \int\limits_{V_{C}} \frac{\partial{} \rho{} \phi{}}{\partial{} t} dVdt + \int\limits_{\Delta{}t} \int\limits_{V_{C}} \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) dVdt = \int\limits_{\Delta{}t} \int\limits_{V_{C}} \nabla \cdot{} ( \Gamma{} \nabla \phi{}) dVdt + \int\limits_{\Delta{}t} \int\limits_{V_{C}} Q dVdt $$ Divergence theorem -&amp;gt; Some terms put on faces $$ \int\limits_{\Delta{}t} \int\limits_{V_{C}} \frac{\partial{} \rho{} \phi{}}{\partial{} t} dVdt + \int\limits_{\Delta{}t} \oint\limits_{S_{C}} \cancel{\nabla \cdot{}} (\rho{} \mathbf{u} \phi{}) d\vec{ S } dt = \int\limits_{\Delta{}t} \oint\limits_{S_{C}} \cancel{\nabla \cdot{}} ( \Gamma{} \nabla \phi{}) d\vec{ S } dt + \int\limits_{\Delta{}t} \int\limits_{V_{C}} Q dVdt $$ midpoint rule / sum contributions assuming orthogonal mesh $$ \int\limits_{\Delta{}t} \frac{\partial{} \rho{}{C} \phi{}{C}}{\partial{} t} V_{C}dt + \int\limits_{\Delta{}t} \sum {f} (\rho{}{f} \mathbf{u}{f} \phi{}{f}) \vec{ S }{f} dt = \int\limits{\Delta{}t} \sum {f} ( \Gamma{}{f} (\nabla \phi{}){f}) \vec{ S }f dt + \int\limits{\Delta{}t} Q V{C}dt $$ implicit Euler $$ \frac{ \left( \partial{} \rho{}{C} \phi{}{C} \right)^{t} - \left( \partial{} \rho{}{C} \phi{}{C} \right)^{t - \Delta{}t} }</description>
+    </item>
+  </channel>
+</rss>
