@@ -10,7 +10,7 @@ title: Math Example
 > $[\ .. ]_{F,f}:=$linearized ${}f{}$lux for cell neighbor on face ${}F{}$  
 > $[\ .. ]_{V,f}:=$*non-*linearized ${}f{}$lux (on source side)  
 > TBD other flux terms
-> 
+
 - example 
 	$$	
 		\frac{\partial{} \rho{} \phi{} }{\partial{} t}   + \nabla \cdot{} (\rho{} \mathbf{u} \phi{}) = \nabla \cdot{} ( \Gamma{} \nabla  \phi{}) + Q
